@@ -36,10 +36,10 @@ Section:NewButton("คลิกเพื่อ Tween ", "", function()
 end)
 Section:NewToggle("ออโต้ Tween", "", function(t)
   _G.TweenPlayer = t
+  game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
   while _G.TweenPlayer do wait()
     local Player = game.Players.LocalPlayer
     local Target = game.Players[PlayerTP]
-    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = true
     if Player and Target then
       local PlayerCharacter = Player.Character
       local TargetCharacter = Target.Character
@@ -51,10 +51,11 @@ Section:NewToggle("ออโต้ Tween", "", function(t)
           local Goals = {CFrame = TargetHumanoidRootPart.CFrame}
           _G.Tween = TweenService:Create(PlayerHumanoidRootPart, TweenInfo, Goals)
           _G.Tween:Play()
+          _G.Tween.Completed:Wait() -- Wait for the tween to complete
         end
       end
-      game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
     end
+    game.Players.LocalPlayer.Character.HumanoidRootPart.Anchored = false
   end
 end)
 Section:NewButton("ยกเลิก Tween ", "", function()
